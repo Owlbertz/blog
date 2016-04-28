@@ -1,0 +1,43 @@
+<!doctype html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{description}}">
+  <link rel="icon" href="/assets/img/icons/favicon.ico" type="image/x-icon">
+
+  <!--  <title>Marius Olbertz is blogging{{#unlesspage 'index'}} |  {{title}}{{/unlesspage}}</title> -->
+  <title>{{#unlesspage 'index'}}{{title}} | {{/unlesspage}}Marius' Blog</title>
+
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300%7CLato:700%7CPoiret+One" media="all">
+  <link href="/assets/css/main.css" rel="stylesheet" />
+
+  <style type="text/css">
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="row">
+        <div class="columns small-12">
+          <h1>{{{title}}}</h1>
+        </div>
+      </div>
+    </header>
+    <nav aria-label="You are here:" role="navigation">
+      <div class="row">
+        <div class="columns small-12">
+          <ul class="breadcrumbs">
+            <li><a href="/">Home</a></li>
+            {{#unlesspage 'index'}}
+            <li>
+              <span class="show-for-sr">Current: </span> {{title}}
+            </li>
+            {{/unlesspage}}
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <main>

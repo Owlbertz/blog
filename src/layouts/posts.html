@@ -1,0 +1,21 @@
+{{>header}}
+<div class="row">
+  <div class="medium-9 large-10 columns" id="content">
+    <div class="text-right">
+    Published: {{published}}
+    </div>
+{{> body}}
+
+  {{#tags}}
+    <button class="button small hollow ">{{.}}</button>
+  {{/tags}}
+  </div>
+  <div class="medium-3 large-2 columns" data-sticky-container>
+    <nav class="columns sticky" data-sticky data-anchor="content" data-sticky-on="medium">
+      <h3>Contents</h3>
+      <ul class="vertical menu list-of-contents" data-magellan>
+      </ul>
+    </nav>  
+  </div>
+</div>
+{{>footer}}

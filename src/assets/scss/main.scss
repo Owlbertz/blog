@@ -1,0 +1,97 @@
+@import 'settings';
+@import 'foundation';
+
+@include foundation-everything;
+
+
+.list-of-contents {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.jump-to-top {
+  position: fixed;
+  bottom: 0;
+  right: 5em;
+  background: #fff;
+  box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+  padding: 1em;
+}
+
+
+.post {
+  margin-bottom: 1em;
+}
+
+//Code highlighting
+code {
+  padding: 0.5em;
+  font-size: 0.8em;
+  color: #333;
+  background: #f8f8f8;
+  margin-bottom: 10px;
+  -webkit-text-size-adjust: none; }
+
+pre code {
+  display: block;
+  overflow-x: auto;
+}
+
+.hljs-comment,
+.diff .hljs-header,
+.hljs-javadoc {
+  color: #998;
+  font-style: italic; }
+
+.hljs-keyword,
+.css .rule .hljs-keyword,
+.hljs-winutils,
+.nginx .hljs-title,
+.hljs-subst,
+.hljs-request,
+.hljs-status {
+  color: #333;
+  font-weight: bold; }
+
+.hljs-number,
+.hljs-hexcolor,
+.ruby .hljs-constant {
+  color: #008080; }
+
+.hljs-string,
+.hljs-tag .hljs-value,
+.hljs-phpdoc,
+.hljs-dartdoc,
+.tex .hljs-formula {
+  color: #CA104B; }
+
+.hljs-title,
+.hljs-id,
+.scss .hljs-preprocessor {
+  color: #900;
+  font-weight: bold; }
+
+.hljs-list .hljs-keyword,
+.hljs-subst {
+  font-weight: normal; }
+
+.hljs-class .hljs-title,
+.hljs-type,
+.hljs-literal,
+.tex .hljs-command {
+  color: #CA104B;
+  font-weight: bold; }
+
+.hljs-tag,
+.hljs-tag .hljs-title,
+.hljs-rule .hljs-property,
+.django .hljs-tag .hljs-keyword {
+  color: #000080;
+  font-weight: normal; }
+
+.hljs-attribute,
+.hljs-variable,
+.lisp .hljs-body,
+.hljs-name {
+  color: #008080; }

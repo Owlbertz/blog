@@ -1,0 +1,119 @@
+<!doctype html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <link rel="icon" href="/assets/img/icons/favicon.ico" type="image/x-icon">
+
+  <!--  <title>Marius Olbertz is blogging |  Creating Foundation 6 plugins</title> -->
+  <title>Creating Foundation 6 plugins | Marius' Blog</title>
+
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300%7CLato:700%7CPoiret+One" media="all">
+  <link href="/assets/css/main.css" rel="stylesheet" />
+
+  <style type="text/css">
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="row">
+        <div class="columns small-12">
+          <h1>Creating Foundation 6 plugins</h1>
+        </div>
+      </div>
+    </header>
+    <nav aria-label="You are here:" role="navigation">
+      <div class="row">
+        <div class="columns small-12">
+          <ul class="breadcrumbs">
+            <li><a href="/">Home</a></li>
+            <li>
+              <span class="show-for-sr">Current: </span> Creating Foundation 6 plugins
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <main>
+<div class="row">
+  <div class="medium-9 large-10 columns" id="content">
+    <div class="text-right">
+    Published: April 26, 2016
+    </div>
+<p>Foundation for sites already comes with a huge amount of features and possibilities. Tons of options and events for each one allow you to customize each of them.
+But for some use cases even that might not give you the functionality you need - so you decide to create your own component.</p>
+<p>Luckily, writing Foundation plugins is quite easy because of the modular structure. This allows you to re-use the existing plugins or at least make use of the stunning utilities that come with the framework. To make use of existing plugins one can simply invoke them via JavaScript like so:</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> tooltip = <span class="hljs-keyword">new</span> Foundation.Tooltip($element, {
+  disableHover: <span class="hljs-literal">true</span>,  
+  clickOpen: <span class="hljs-literal">false</span>
+});
+</code></pre>
+<p>Or you can create them on the fly:</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> modal = <span class="hljs-keyword">new</span> Foundation.Reveal($(<span class="hljs-string">'&lt;div class="reveal"/&gt;'</span>).appendTo($(<span class="hljs-string">'body'</span>)));
+</code></pre>
+<p>Of course using Foundation features requires you to include their code in your site before you call them. This can be done by simply including the whole Foundation JavaScript before your own plugin or by bundling them into your component&#39;s file, creating a lightweight module that can be used everywhere without the need of having unused Foundation code in your site.</p>
+<h2><a class="anchor" href="#leveraging-javascript-utilities"><span class="header-link"></span></a>Leveraging JavaScript utilities</h2><p>Foundation also offers many <a href="http://foundation.zurb.com/sites/docs/javascript-utilities.html">JavaScript utilities</a> with the following being the most helpful when creating complex functionality:</p>
+<ul>
+<li><strong>Box:</strong> Gives you multiple possibilities to handle element dimensions and collisions. This is very helpful if you create markup in your code or toggle visibility of existing elements.</li>
+<li><strong>Keyboard:</strong> Helps you handle keyboard interactions with your plugin. You can either register your plugin like it&#39;s done for Foundation&#39;s plugins or you just use it to parse the pressed key.</li>
+<li><strong>Triggers:</strong> Offers a lot of event listeners that you can use to hook your code into. Useful for toggling visibility or opening/closing elements.</li>
+</ul>
+<p>You can access them by using <code>Foundation.UtilName.functionName</code> anywhere in your code.</p>
+<h2><a class="anchor" href="#add-a-little-umd"><span class="header-link"></span></a>Add a little UMD</h2><p>By adding a UMD (unified module definition) wrapper around your module definition you can make it usable with tools like requireJS (the below code is written using ES2015):</p>
+<pre><code class="lang-js">!(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">root, factory</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> define === <span class="hljs-string">'function'</span> &amp;&amp; define.amd) {  <span class="hljs-comment">// AMD</span>
+    define([<span class="hljs-string">'jquery'</span>], factory);
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> exports === <span class="hljs-string">'object'</span>) { <span class="hljs-comment">// Node, CommonJS-like</span>
+    <span class="hljs-built_in">module</span>.exports = factory(<span class="hljs-built_in">require</span>(<span class="hljs-string">'jquery'</span>));
+  } <span class="hljs-keyword">else</span> { <span class="hljs-comment">// Browser globals (root is window)</span>
+    root.returnExports = factory(root.jQuery);
+  }
+}(<span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$</span>) </span>{
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PluginName</span> </span>{
+    <span class="hljs-keyword">constructor</span>(element, options) {
+      [...]
+    }
+  }
+  Foundation.plugin(PluginName, <span class="hljs-string">'PluginName'</span>);
+  <span class="hljs-keyword">return</span> PluginName;
+}));
+</code></pre>
+<h2><a class="anchor" href="#next-steps"><span class="header-link"></span></a>Next steps</h2><p>Now that you know the basics of Foundation plugin creation you can start writing components that exactly fit your needs while leveraging the strong palette of Foundation features. You may check out <a href="https://github.com/zurb/joyride/tree/develop">Joyride</a>, which was part of Foundation 5 and is now an optional plugin for Foundation 6.</p>
+
+
+    <button class="button small hollow ">Foundation</button>
+    <button class="button small hollow ">Plugin</button>
+    <button class="button small hollow ">JavaScript</button>
+  </div>
+  <div class="medium-3 large-2 columns" data-sticky-container>
+    <nav class="columns sticky" data-sticky data-anchor="content" data-sticky-on="medium">
+      <h3>Contents</h3>
+      <ul class="vertical menu list-of-contents" data-magellan>
+      </ul>
+    </nav>  
+  </div>
+</div>
+    </main>
+    <footer id="footer">
+      <div class="row">
+        <div class="columns small-12">
+          <p>
+            A blog by <a href="http://mariusolbertz.de" target="_blank">Marius Olbertz</a>.
+            <br /><small>Built using Gulp, Foundation, Panini.</small>
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <a href="#content" class="jump-to-top">
+    <span class="show-for-sr">Jump to top</span>
+    <span aria-hidden="true">&uarr;</span>
+  </a>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>
