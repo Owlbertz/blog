@@ -13,23 +13,18 @@ gulp.task('markdown', function() {
   renderer.code = function(code, lang) {
     if (lang === 'config') return '---\n' + code + '\n---\n';
     else return _code.apply(renderer, [code, lang]);
-  }
-  renderer.hr = function() {
-    return '';
   };
-  renderer.heading = function (text, level) {
-    if (text.indexOf('title:') === 0) { // YAML config
-      return '---\n' + text + '\n---\n';
-    }
-    var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
-    return '<h' + level + '><a class="anchor" href="#' + escapedText + '"><span class="header-link"></span></a>' + text + '</h' + level + '>';
-  }
 
   return gulp.src(config.srcPath + 'pages/**/*.md')
     .pipe(markdown({
       renderer: renderer,
       highlight: function (code, lang) {
-        if (lang === 'config') return code;
+        console.log(lang);
+
+        if (lang === 'config') {
+          cosnole.log(code);
+          return code;
+        }
         return require('highlight.js').highlight(lang, code).value;
       }
     }))
@@ -54,6 +49,7 @@ gulp.task('index', ['markdown'], function(cb) {
     var posts = [],
       allTags = {};
     filenames.forEach(function(filename) {
+      console.log('Processing ' + filename);
       var content = fs.readFileSync(config.buildPath + '/pages/posts/' + filename, 'utf-8'),
         data = /---((\n.*)*)---\n*<p>(.*)/.exec(content),
         yaml = data[1],

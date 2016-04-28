@@ -1,6 +1,7 @@
----
+```config
 title: Marius' Blog
----
+```
+
 {{#posts}}
   <article class="post">
     <div class="row">

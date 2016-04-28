@@ -2,7 +2,7 @@
 title: Creating Foundation 6 plugins
 published: April 26, 2016
 url: plugins
-tags: 
+tags:
   - Foundation
   - Plugin
   - JavaScript
