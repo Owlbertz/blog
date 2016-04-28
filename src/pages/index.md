@@ -5,10 +5,10 @@ title: Marius' Blog
   <article class="post">
     <div class="row">
       <div class="columns small-12 medium-9">
-        <h3>[{{title}}](/posts/{{url}}.html)</h3>
+        <h3>[{{title}}](posts/{{url}}.html)</h3>
         <p>{{{teaser}}}</p>
         <div class="text-right">
-          [Read more...](/posts/{{url}}.html)
+          [Read more...](posts/{{url}}.html)
         </div>
       </div>
       <div class="columns small-12 medium-3">
