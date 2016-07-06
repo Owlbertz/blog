@@ -1,0 +1,159 @@
+<!doctype html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon">
+
+  <!--  <title>Marius Olbertz is blogging |  Building Modules for Angular and Node</title> -->
+  <title>Building Modules for Angular and Node | Marius' Blog</title>
+
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300%7CLato:700%7CPoiret+One" media="all">
+  <link href="../assets/css/main.css" rel="stylesheet" />
+
+  <style type="text/css">
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="row">
+        <div class="columns small-12">
+          <h1>Building Modules for Angular and Node</h1>
+        </div>
+      </div>
+    </header>
+    <nav aria-label="You are here:" role="navigation">
+      <div class="row">
+        <div class="columns small-12">
+          <ul class="breadcrumbs">
+            <li>
+              <a href="../">Home</a>
+            </li>
+            <li>
+              <span class="show-for-sr">Current: </span> Building Modules for Angular and Node
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <main>
+<div class="row">
+  <div class="medium-8 large-9 columns" id="content">
+    <div class="text-right">
+      Published: May 5, 2016
+    </div>
+    <hr />
+<p>With some magic wrapping it is possible to easily re-use modules for Node in Angular apps and vice versa. By leveraging the concept of unified module definitions (UMD) creating platform independent services becomes easy.</p>
+<h2 id="why-care-about-re-useable-modules-">Why care about re-useable modules?</h2>
+<p>Putting stuff that belongs together into modules or services is a pretty good thing to do, because it allows you (and of course others) to re-use your code across multiple placed or even multiple projects. Just imagine a world without Node modules, where you would have re-invent the wheel every time or at least struggle with the integration of foreign code snippets into your project.</p>
+<p>In some rare cases you might need to share the same functionalities (i.e. the same code) with your frontend as well as your backend. When I came across this point by having an Angular and a Node application that both need to access the same external API, I did not want to write the same code twice and immideately thought about a unified module definition.</p>
+<h2 id="unified-module-definitions">Unified module definitions</h2>
+<p>Unified module definitions allow you to use the same code in various environments, like on a Node server or in the browser &dash; with or without a module definition framework like requireJS. This is done by wrapping the module in a function that is passed as a parameter to the respective framework. The following example from the <a href="https://github.com/umdjs/umd">UMDJS repository</a> shows a basic UMD wrapping.</p>
+<pre><code class="lang-js">!(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">root, factory</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> define === <span class="hljs-string">'function'</span> &amp;&amp; define.amd) {  <span class="hljs-comment">// AMD</span>
+    define([<span class="hljs-string">'jquery'</span>], factory);
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> exports === <span class="hljs-string">'object'</span>) { <span class="hljs-comment">// Node, CommonJS-like</span>
+    <span class="hljs-built_in">module</span>.exports = factory(<span class="hljs-built_in">require</span>(<span class="hljs-string">'jquery'</span>));
+  } <span class="hljs-keyword">else</span> { <span class="hljs-comment">// Browser globals (root is window)</span>
+    root.returnExports = factory(root.jQuery);
+  }
+}(<span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$</span>) </span>{
+  <span class="hljs-keyword">var</span> service = {};
+  <span class="hljs-comment">/* some magic code enhancing the service... */</span>
+  <span class="hljs-keyword">return</span> service;
+}));
+</code></pre>
+<h2 id="wrapping-for-angular">Wrapping for Angular</h2>
+<p>The given code can be adjusted to also fit Angular&#39;s way of defining dependencies by adding another branch in the <code>if</code> / <code>else</code> statments.</p>
+<pre><code class="lang-js">!(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">root, factory</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">module</span> === <span class="hljs-string">'object'</span> &amp;&amp; <span class="hljs-built_in">module</span>.exports) { <span class="hljs-comment">// Node</span>
+    <span class="hljs-comment">/* export your service as module... */</span>
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> angular === <span class="hljs-string">'object'</span>) { <span class="hljs-comment">// Angular  </span>
+    <span class="hljs-comment">/* export your service as factory... */</span>
+  } 
+}(<span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$</span>) </span>{
+  <span class="hljs-keyword">var</span> service = {};
+  <span class="hljs-comment">/* some magic code enhancing the service... */</span>
+  <span class="hljs-keyword">return</span> service;
+}));
+</code></pre>
+<p>Like when working with requireJS the new block to check for Angular will only be executed when your app is using Angular. It makes sense to define a factory for your app here that then can be used by the controllers.</p>
+<h2 id="injecting-dependencies">Injecting dependencies</h2>
+<p>In the example above jQuery is defined as a dependency for the service. That&#39;s an easy thing to do because jQuery offers the same functionality for browsers and Node (at least for some utilities like <code>$.extend</code>). But what if you need to make use of some more core components. For example, if you want to do some HTTP(S) requests, wouldn&#39;t it be nice to make use of an already existing module that offers such a functionality? Trick question: it would. So, just add the <code>$http</code> service to the example above and you are ready to go.</p>
+<p>Unfortunately not, because when you run your module in a Node component, you will most likely get something like <code>ReferenceError: $http is not defined</code>.
+So what can you do? Passing the Node <code>request</code> module would result in the same error when using the code in a browser. This problem can be easily solved by defining some helper service that returns either the <code>$http</code> or the <code>request</code> module.</p>
+<pre><code class="lang-js">!(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">root, service</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">module</span> === <span class="hljs-string">'object'</span> &amp;&amp; <span class="hljs-built_in">module</span>.exports) { <span class="hljs-comment">// Node</span>
+    <span class="hljs-keyword">var</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'request'</span>),
+      requestUtil = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options, callback</span>) </span>{
+        request(options, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, response, body</span>) </span>{
+          callback(body);
+        });
+      };
+    <span class="hljs-built_in">module</span>.exports = service(requestUtil);
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> angular === <span class="hljs-string">'object'</span>) { <span class="hljs-comment">// Angular  </span>
+    app.factory(<span class="hljs-string">'myService'</span>, [<span class="hljs-string">'$rootScope'</span>, <span class="hljs-string">'$http'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$rootScope, $http</span>) </span>{
+      <span class="hljs-keyword">var</span> requestUtil = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options, callback</span>) </span>{
+        $http(options)
+        .success(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{
+          callback(data);
+        });
+      };
+      <span class="hljs-keyword">return</span> service(requestUtil);
+    }]);
+  } 
+}(<span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">requestUtil</span>) </span>{
+  <span class="hljs-keyword">var</span> service = {};
+  service.get = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">id, callback</span>) </span>{
+    requestUtil({
+      url: <span class="hljs-string">'http://someurl.com/items/'</span> + id
+    }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, err</span>) </span>{
+      callback(data);
+    });
+  };
+  <span class="hljs-keyword">return</span> service;
+}));
+</code></pre>
+<p>Now you can safely access the <code>requestUtil</code> in your code and it will work in your Angular app as well as its Node backend. This short example allows you to query an item with a given ID from some API.</p>
+<h2 id="what-now-">What now?</h2>
+<p>Now that your code is usable accross Angular and Node, maybe you want to also offer it to those poor people that don&#39;t use either of those, but only the basic jQuery. If so, just go ahead and create another case in the <code>requestUtìl</code> that uses <code>$.ajax</code> to perform HTTP requests.</p>
+
+
+    <span class="button small hollow ">JavaScript</span>
+    <span class="button small hollow ">Angular</span>
+    <span class="button small hollow ">Node</span>
+    <span class="button small hollow ">Modules</span>
+  </div>
+  <div class="medium-4 large-3 columns" data-sticky-container>
+    <nav class="columns sticky" data-sticky data-anchor="content" data-sticky-on="medium">
+      <h3>Contents</h3>
+      <ul class="vertical menu list-of-contents" data-magellan>
+      </ul>
+    </nav>  
+  </div>
+</div>
+    </main>
+    <footer id="footer">
+      <div class="row">
+        <div class="columns small-12">
+          <hr />
+          <p>
+            A blog by <a href="http://mariusolbertz.de" target="_blank">Marius Olbertz</a>.
+            <br /><small>Built using Gulp, Foundation, Panini.</small>
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <a href="#content" class="jump-to-top" title="Jump to top">
+    <!--<span class="show-for-sr">Jump to top</span>-->
+    <span aria-hidden="true">&uarr;</span>
+  </a>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -1462,7 +1462,7 @@ kbd {
   line-height: 1.4;
   color: #8a8a8a; }
 
-.lead {
+.lead, #content p:first-of-type {
   font-size: 125%;
   line-height: 1.6; }
 
@@ -3560,17 +3560,31 @@ table.hover tr:nth-of-type(even):hover {
 
 .jump-to-top {
   position: fixed;
-  bottom: 0;
   right: 5em;
   background: #fff;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
-  padding: 1em; }
+  padding: 0.3em 0.7em;
+  bottom: -120px;
+  z-index: 3;
+  font-size: 2em;
+  transition: bottom 0.5s; }
+
+.jump-to-top.shown,
+.jump-to-top:focus {
+  bottom: 0px;
+  transition: bottom 0.5s; }
 
 .post {
   margin-bottom: 1em; }
 
+.filtered .post {
+  display: none; }
+
+.filtered .post.selected {
+  display: block; }
+
 code {
-  padding: 0.5em;
+  padding: 0.3em;
   font-size: 0.8em;
   color: #333;
   background: #f8f8f8;
