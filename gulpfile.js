@@ -10,14 +10,21 @@ requireDir('gulp');
 
 
 
-gulp.task('default', ['serve']);
+gulp.task('default', ['serve', 'watch']);
 
 
-gulp.task('build', ['pages', 'scss', 'js']);
+gulp.task('build', ['pages', 'scss', 'js'], function() {
+  var images = [
+    config.srcPath + 'assets/img/*'
+  ];
+  return gulp.src(images)
+    .pipe(gulp.dest(config.destPath + 'assets/img/'));
+});
 
 
 
 gulp.task('serve', ['build'], function() {
+  console.log('Initing browser sync!');
   browser.init({server: config.destPath, port: port});
 });
 
@@ -29,9 +36,9 @@ gulp.task('publish', function(cb) {
 });
 
 gulp.task('watch', function() {
-  gulp.watch([config.srcPath + '{layouts,partials,helpers,data}/**/*'], [panini.refresh]);
-  gulp.watch([config.srcPath + 'pages/**/*'], ['markdown']);
-  gulp.watch([config.buildPath + 'pages/**/*'], [panini.refresh]);
+  gulp.watch([config.srcPath + '{layouts,partials,helpers,data}/**/*'], ['pages']);
+  gulp.watch([config.srcPath + 'pages/**/*'], ['pages']);
+  //gulp.watch([config.buildPath + 'pages/**/*'], ['pages']);
   gulp.watch([config.srcPath + 'scss/**/*'], ['scss']);
   gulp.watch([config.distPath + '**/*'], [browser.reload]);
 });

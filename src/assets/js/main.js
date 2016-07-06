@@ -19,6 +19,28 @@ $(document).ready(function() {
 
   // toggling tags
   $('.tag').click(function() {
-    $(this).toggleClass('hollow');
+    var activeTag = $(this).text(),
+      deactivate = $(this).is('.hollow');
+    $('.tag').addClass('hollow');
+    if (deactivate) $('.tag[data-tag="' + activeTag + '"]').removeClass('hollow');
+
+    $('.post').removeClass('selected');
+    if (deactivate) $('.post[data-tags*="' + activeTag + '"]').addClass('selected');
+    if ($('.post.selected').length) {
+      $('#content').addClass('filtered');
+    } else {
+      $('#content').removeClass('filtered');
+    }
+   
+  });
+
+
+  // fade in scroll to top button
+  $(window).scroll(function() {
+    if ($(window).scrollTop() >= $(window).innerHeight()) { //if its more than 1 screen scrolled
+      $('.jump-to-top').addClass('shown'); // show jump-to-top link
+    } else {
+      $('.jump-to-top').removeClass('shown'); // hide jump-to-top link
+    }
   });
 });

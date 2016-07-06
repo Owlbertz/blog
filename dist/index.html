@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <link rel="icon" href="assets/img/icons/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
 
   <!--  <title>Marius Olbertz is blogging</title> -->
   <title>Marius' Blog</title>
@@ -41,7 +41,26 @@
 <div class="row">
   <div class="columns small-12" id="content">
 <p>
-  <article class="post">
+  <article class="post" data-tags="JavaScript Angular Node Modules ">
+    <div class="row">
+      <div class="columns small-12 medium-9">
+        <h3><a href="posts/modules.html">Building Modules for Angular and Node</a></h3>
+        <p>With some magic wrapping it is possible to easily re-use modules for Node in Angular apps and vice versa. By leveraging the concept of unified module definitions (UMD) creating platform independent services becomes easy.</p></p>
+        <div class="text-right">
+          <a href="posts/modules.html">Read more...</a>
+        </div>
+      </div>
+      <div class="columns small-12 medium-3">
+          <button class="button small hollow tag" data-tag="JavaScript">JavaScript</button>
+          <button class="button small hollow tag" data-tag="Angular">Angular</button>
+          <button class="button small hollow tag" data-tag="Node">Node</button>
+          <button class="button small hollow tag" data-tag="Modules">Modules</button>
+        <p>published: May 5, 2016</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="post" data-tags="Foundation Plugin JavaScript ">
     <div class="row">
       <div class="columns small-12 medium-9">
         <h3><a href="posts/plugins.html">Creating Foundation 6 plugins</a></h3>
@@ -51,15 +70,15 @@
         </div>
       </div>
       <div class="columns small-12 medium-3">
-          <button class="button small hollow tag">Foundation</button>
-          <button class="button small hollow tag">Plugin</button>
-          <button class="button small hollow tag">JavaScript</button>
+          <button class="button small hollow tag" data-tag="Foundation">Foundation</button>
+          <button class="button small hollow tag" data-tag="Plugin">Plugin</button>
+          <button class="button small hollow tag" data-tag="JavaScript">JavaScript</button>
         <p>published: April 26, 2016</p>
       </div>
     </div>
   </article>
 
-  <article class="post">
+  <article class="post" data-tags="Blog Gulp ">
     <div class="row">
       <div class="columns small-12 medium-9">
         <h3><a href="posts/blogging.html">Blogging</a></h3>
@@ -69,8 +88,8 @@
         </div>
       </div>
       <div class="columns small-12 medium-3">
-          <button class="button small hollow tag">Blog</button>
-          <button class="button small hollow tag">Gulp</button>
+          <button class="button small hollow tag" data-tag="Blog">Blog</button>
+          <button class="button small hollow tag" data-tag="Gulp">Gulp</button>
         <p>published: April 24, 2016</p>
       </div>
     </div>
@@ -83,6 +102,7 @@
     <footer id="footer">
       <div class="row">
         <div class="columns small-12">
+          <hr />
           <p>
             A blog by <a href="http://mariusolbertz.de" target="_blank">Marius Olbertz</a>.
             <br /><small>Built using Gulp, Foundation, Panini.</small>
@@ -92,8 +112,8 @@
     </footer>
   </div>
 
-  <a href="#content" class="jump-to-top">
-    <span class="show-for-sr">Jump to top</span>
+  <a href="#content" class="jump-to-top" title="Jump to top">
+    <!--<span class="show-for-sr">Jump to top</span>-->
     <span aria-hidden="true">&uarr;</span>
   </a>
   <script src="assets/js/main.js"></script>

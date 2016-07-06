@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <link rel="icon" href="../assets/img/icons/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon">
 
   <!--  <title>Marius Olbertz is blogging |  Creating Foundation 6 plugins</title> -->
   <title>Creating Foundation 6 plugins | Marius' Blog</title>
@@ -42,10 +42,11 @@
     </nav>
     <main>
 <div class="row">
-  <div class="medium-9 large-10 columns" id="content">
+  <div class="medium-8 large-9 columns" id="content">
     <div class="text-right">
-    Published: April 26, 2016
+      Published: April 26, 2016
     </div>
+    <hr />
 <p>Foundation for sites already comes with a huge amount of features and possibilities. Tons of options and events for each one allow you to customize each of them.
 But for some use cases even that might not give you the functionality you need - so you decide to create your own component.</p>
 <p>Luckily, writing Foundation plugins is quite easy because of the modular structure. This allows you to re-use the existing plugins or at least make use of the stunning utilities that come with the framework. To make use of existing plugins one can simply invoke them via JavaScript like so:</p>
@@ -90,11 +91,11 @@ But for some use cases even that might not give you the functionality you need -
 <p>Now that you know the basics of Foundation plugin creation you can start writing components that exactly fit your needs while leveraging the strong palette of Foundation features. You may check out <a href="https://github.com/zurb/joyride/tree/develop">Joyride</a>, which was part of Foundation 5 and is now an optional plugin for Foundation 6.</p>
 
 
-    <button class="button small hollow ">Foundation</button>
-    <button class="button small hollow ">Plugin</button>
-    <button class="button small hollow ">JavaScript</button>
+    <span class="button small hollow ">Foundation</span>
+    <span class="button small hollow ">Plugin</span>
+    <span class="button small hollow ">JavaScript</span>
   </div>
-  <div class="medium-3 large-2 columns" data-sticky-container>
+  <div class="medium-4 large-3 columns" data-sticky-container>
     <nav class="columns sticky" data-sticky data-anchor="content" data-sticky-on="medium">
       <h3>Contents</h3>
       <ul class="vertical menu list-of-contents" data-magellan>
@@ -106,6 +107,7 @@ But for some use cases even that might not give you the functionality you need -
     <footer id="footer">
       <div class="row">
         <div class="columns small-12">
+          <hr />
           <p>
             A blog by <a href="http://mariusolbertz.de" target="_blank">Marius Olbertz</a>.
             <br /><small>Built using Gulp, Foundation, Panini.</small>
@@ -115,8 +117,8 @@ But for some use cases even that might not give you the functionality you need -
     </footer>
   </div>
 
-  <a href="#content" class="jump-to-top">
-    <span class="show-for-sr">Jump to top</span>
+  <a href="#content" class="jump-to-top" title="Jump to top">
+    <!--<span class="show-for-sr">Jump to top</span>-->
     <span aria-hidden="true">&uarr;</span>
   </a>
   <script src="../assets/js/main.js"></script>

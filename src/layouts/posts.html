@@ -1,16 +1,17 @@
 {{>header}}
 <div class="row">
-  <div class="medium-9 large-10 columns" id="content">
+  <div class="medium-8 large-9 columns" id="content">
     <div class="text-right">
-    Published: {{published}}
+      Published: {{published}}
     </div>
+    <hr />
 {{> body}}
 
   {{#tags}}
-    <button class="button small hollow ">{{.}}</button>
+    <span class="button small hollow ">{{.}}</span>
   {{/tags}}
   </div>
-  <div class="medium-3 large-2 columns" data-sticky-container>
+  <div class="medium-4 large-3 columns" data-sticky-container>
     <nav class="columns sticky" data-sticky data-anchor="content" data-sticky-on="medium">
       <h3>Contents</h3>
       <ul class="vertical menu list-of-contents" data-magellan>

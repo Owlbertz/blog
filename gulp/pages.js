@@ -19,8 +19,6 @@ gulp.task('markdown', function() {
     .pipe(markdown({
       renderer: renderer,
       highlight: function (code, lang) {
-        console.log(lang);
-
         if (lang === 'config') {
           cosnole.log(code);
           return code;
@@ -32,6 +30,7 @@ gulp.task('markdown', function() {
 });
 
 gulp.task('pages', ['markdown', 'index'], function() {
+  panini.refresh();
   return gulp.src(config.buildPath + 'pages/**/*.html')
     .pipe(panini({
       root: config.buildPath + 'pages/',
