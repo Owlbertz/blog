@@ -3,12 +3,28 @@
 
 @include foundation-everything;
 
+body {
+  font-size: 1.2em;
+}
 
 .list-of-contents {
   list-style: none;
   padding: 0;
   margin: 0;
+
+  & > li > a {
+    padding-left: 0;
+  }
 }
+
+p a {
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 
 .jump-to-top {
   position: fixed;

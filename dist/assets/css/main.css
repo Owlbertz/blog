@@ -3553,10 +3553,20 @@ table.hover tr:nth-of-type(even):hover {
 .clearfix::after {
   clear: both; }
 
+body {
+  font-size: 1.2em; }
+
 .list-of-contents {
   list-style: none;
   padding: 0;
   margin: 0; }
+  .list-of-contents > li > a {
+    padding-left: 0; }
+
+p a {
+  text-decoration: underline; }
+  p a:hover {
+    text-decoration: none; }
 
 .jump-to-top {
   position: fixed;
@@ -3653,4 +3663,4 @@ pre code {
 .hljs-name {
   color: #008080; }
 
-/*# sourceMappingURL=main.css.map */
+

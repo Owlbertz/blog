@@ -39,6 +39,6 @@ gulp.task('watch', function() {
   gulp.watch([config.srcPath + '{layouts,partials,helpers,data}/**/*'], ['pages']);
   gulp.watch([config.srcPath + 'pages/**/*'], ['pages']);
   //gulp.watch([config.buildPath + 'pages/**/*'], ['pages']);
-  gulp.watch([config.srcPath + 'scss/**/*'], ['scss']);
+  gulp.watch([config.srcPath + 'assets/scss/**/*'], ['scss', browser.reload]);
   gulp.watch([config.distPath + '**/*'], [browser.reload]);
 });
