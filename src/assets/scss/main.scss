@@ -4,6 +4,10 @@
 @include foundation-everything;
 
 body {
+  text-align: justify;
+}
+
+.post {
   font-size: 1.2em;
 }
 
@@ -28,7 +32,7 @@ p a {
 
 .jump-to-top {
   position: fixed;
-  right: 5em;
+  right: 10%;
   background: #fff;
   box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
   padding: 0.3em 0.7em;
@@ -57,13 +61,13 @@ p a {
   display: block;
 }
 
-#content p:first-of-type {
+.post #content p:first-of-type {
   @extend .lead;
 }
 
 //Code highlighting
 code {
-  padding: 0.3em;
+  padding: 0.1em 0.3em;
   font-size: 0.8em;
   color: #333;
   background: #f8f8f8;
