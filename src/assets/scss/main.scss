@@ -65,6 +65,10 @@ p a {
   @extend .lead;
 }
 
+.breadcrumbs li:not(:last-child)::after {
+  color: #353b3f;
+}
+
 //Code highlighting
 code {
   padding: 0.1em 0.3em;
