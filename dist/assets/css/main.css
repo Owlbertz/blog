@@ -3553,11 +3553,9 @@ table.hover tr:nth-of-type(even):hover {
 .clearfix::after {
   clear: both; }
 
-body {
+.post p, .post li {
+  font-size: 1.2em;
   text-align: justify; }
-
-.post {
-  font-size: 1.2em; }
 
 .list-of-contents {
   list-style: none;

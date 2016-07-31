@@ -3,12 +3,12 @@
 
 @include foundation-everything;
 
-body {
-  text-align: justify;
-}
 
 .post {
-  font-size: 1.2em;
+  p, li {
+    font-size: 1.2em;
+    text-align: justify;    
+  }
 }
 
 .list-of-contents {
